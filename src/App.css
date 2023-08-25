@@ -1,0 +1,156 @@
+.home-outer {
+  margin-top: 85px;
+}
+.Home-main{
+  text-align: center;
+  font-family: "Poppins";
+}
+
+.movie-poster {
+  height: 530px;
+  width: 100%;
+  /* zoom  in */
+  object-fit: cover;
+}
+
+.movie-name {
+  font-size: 24px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+.movie-rating {
+  font-size: 24px;
+}
+.movie-name-rating {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.movie-summary {
+  font-size: 19px;
+  font-weight: 400;
+  border-radius: 14px;
+  padding: 7px;
+}
+
+.movie-specs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.movie-container {
+  width: 340px;
+}
+
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1rem;
+  justify-items: center;
+  margin-top: 85px;
+}
+
+.addmovie-outer {
+  margin: 0px auto;
+  margin-top: 85px;
+  padding: 10px;
+  gap: 20px;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: stretch;
+  align-items: stretch;
+}
+
+.Movie-details-Container {
+  max-width: 80%;
+  padding: 15px;
+}
+
+.movieDetail-outer {
+  margin-top: 62px;
+}
+
+/* login */
+
+.title {
+  text-align: center;
+  font-family: "Poppins";
+}
+
+.login-main {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.outer-div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 600px;
+}
+
+.forget-done-outer-div {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.showPassword-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.showPassword-div > p {
+  margin-bottom: 1px;
+  font-size: 15px;
+}
+
+.login-bottom {
+  gap: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Forget */
+.forget-p {
+  font-size: 19px;
+  letter-spacing: 1px;
+}
+.signup-p {
+  letter-spacing: 1px;
+  text-align: center;
+}
+.forget-exp {
+  color: #5a5a5a;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+/* .propic{
+  height:120px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.name{
+  
+  font-weight: normal;
+}
+.bold{
+  color: crimson;
+  font-weight: bolder;
+}
+.sec1{
+  text-align: center;
+} */
