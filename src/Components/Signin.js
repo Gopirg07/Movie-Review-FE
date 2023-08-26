@@ -46,7 +46,7 @@ export default function Signin() {
       toast.success(res.data.message);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.role);
-      navigate("/dashboard");
+      navigate("/home");
     } catch (error) {
       toast.error(error.response.data.message); 
       localStorage.setItem("token", error.response.data.token);
