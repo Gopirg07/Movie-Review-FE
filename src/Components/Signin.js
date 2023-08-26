@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { Button, Checkbox, TextField } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Checkbox, TextField } from "@mui/material";
 import { toast } from "react-toastify";
 import axios from "axios"; 
 import { url } from "../global";
@@ -13,88 +15,127 @@ const LoginSchemaValidation = yup.object({
 });
 
 export default function Signin() {
+  let [show, setShow] = useState(false);
+  const navigate = useNavigate();
+
   useEffect(() => {
     localStorage.removeItem("token");
+    localStorage.removeItem("role");
   }, []);
-
-  const navigate = useNavigate();
 
   const { values, handleChange, handleBlur, handleSubmit, errors, touched } =
     useFormik({
       initialValues: {
-        email: "gopi.rg03@gmail.com",
-        password: "gopi@321",
+        email: "",
+        password: "",
       },
       validationSchema: LoginSchemaValidation,
       onSubmit: (val) => {
-        console.log(val);
-        Login(val);
+        login(val);
       },
     });
 
-  const Login = async (val) => {
+  const login = async (val) => {
     let { email, password } = val;
     let payload = { email, password };
 
+    console.log(payload);
     try {
       let res = await axios.post(`${url}/users/signIn`, payload);
       console.log(res);
       toast.success(res.data.message);
       localStorage.setItem("token", res.data.token);
-      navigate("/home");
-    } catch (err) {
-      toast.error(err.response.data.message);
-      localStorage.setItem("token", err.response.data.token);
+      localStorage.setItem("role", res.data.role);
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   };
 
-  const [show, setShow] = useState(false);
   return (
-    <div className="login-main"> 
-        <form
-          className="outer-div shadow-lg p-3 bg-white rounded"
+    <div className="login-main">
+      <div className="formm-outer">
+        <Form
+          className="formm shadow-lg p-3 mb-5 bg-white rounded"
           onSubmit={handleSubmit}
         >
-          <h2 className="title">Login</h2>
-          <TextField
-            label="Enter Your Email"
-            variant="outlined"
-            name="email"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.email && errors.email ? (
-            <p style={{ color: "red" }}>* {errors.email}</p>
-          ) : (
-            ""
-          )}
-          <TextField
-            label="Enter The Password"
-            variant="outlined"
-            type={show ? "text" : "password"}
-            name="password"
-            value={values.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {touched.password && errors.password ? (
-            <p style={{ color: "red" }}>* {errors.password}</p>
-          ) : (
-            ""
-          )}
-          <div className="showPassword-div">
-            <Checkbox onClick={() => setShow(!show)} />
-            <p>Show Password</p>
+          <div style={{ textAlign: "center", fontFamily: "Montserrat" }}>
+            <h2>Login</h2>
           </div>
-          <Button variant="contained" type="submit">
-            Login
-          </Button>
-          <div className="login-bottom">
-            <Link to="/forget">Forgot Password</Link>
-            <Link to="/signup">Create A New Account</Link>
+          <div className="login-fields">
+            <TextField
+              className="input-field"
+              label="Enter The Email"
+              variant="outlined"
+              onBlur={handleBlur}
+              name="email"
+              value={values.email}
+              onChange={handleChange}
+              style={{
+                marginTop: "15px",
+                fontSize: "15px",
+              }}
+            />
+            {touched.email && errors.email ? (
+              <p style={{ color: "red" }}>{errors.email}</p>
+            ) : (
+              ""
+            )}
+            <TextField
+              className="input-field"
+              label="Enter The Password"
+              variant="outlined"
+              onBlur={handleBlur}
+              name="password"
+              value={values.password}
+              onChange={handleChange}
+              style={{
+                marginTop: "15px",
+                fontSize: "15px",
+              }}
+              type={show ? "text" : "password"}
+            />
+            {touched.password && errors.password ? (
+              <p style={{ color: "red" }}>{errors.password}</p>
+            ) : (
+              ""
+            )}
+            <div className="checkbox-div">
+              <Checkbox onClick={() => setShow(!show)} />
+              <p>Show Password</p>
+            </div>
+            <Button
+              style={{
+                marginTop: "15px",
+                backgroundColor: "#4e73df",
+                borderColor: "#4e73df",
+                color: "#fff",
+                borderRadius: "20px",
+              }}
+              variant="primary"
+              type="submit"
+              // onClick={() => login()}
+            >
+              Submit
+            </Button>
           </div>
-        </form>
-      </div> 
+
+          <div style={{ marginTop: "25px" }}>
+            <div className="text-center mb-1">
+              <Link to="/reset-password" underline="hover">
+                {" "}
+                Forgot Password{" "}
+              </Link>
+            </div>
+            <div className="text-center">
+              <Link to="/account-registration" underline="hover">
+                {" "}
+                Create A New Account{" "}
+              </Link>
+            </div>
+          </div>
+        </Form>
+      </div>
+    </div>
   );
 }

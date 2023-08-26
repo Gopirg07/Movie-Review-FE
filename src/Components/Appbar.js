@@ -39,6 +39,7 @@ export default function Appbar() {
                 component="a"
                 sx={{
                   mr: 6,
+                  ml: 0,
                   display: { md: "flex" },
                   fontFamily: "monospace",
                   fontSize:"30px",

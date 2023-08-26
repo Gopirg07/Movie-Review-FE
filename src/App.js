@@ -11,10 +11,10 @@ import { EditMovie } from './Components/EditMovie';
 import { MovieDetail } from './Components/MovieDetails';
 import Signin from './Components/Signin';
 import Signup from './Components/Signup';
-import Activation from './Components/Activation';
-import ForgotPassword from './Components/Forget';
+import Activation from './Components/Activation'; 
 import ResetPassword from './Components/ResetPassword';
 import { Home } from './Components/Home';
+import ForgotPassword from './Components/ForgotPassword';
 
 function App() {  
   const [movieList,setMovieList] = useState([]); 

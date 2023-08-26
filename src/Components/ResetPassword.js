@@ -1,12 +1,14 @@
-import React, { useState } from "react"; 
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { Button, Checkbox, TextField } from "@mui/material"; 
+import { Checkbox, TextField } from "@mui/material"; 
 import { toast } from "react-toastify";
 import axios from "axios";
 import { url } from "../global";
+
 
 const CreateSchemaValidation = yup.object({
   password: yup.string().required("Minimum 8 Characters Required").min(8),
@@ -49,12 +51,16 @@ export default function ResetPassword() {
   };
 
   return (
-    <div className="login-main"> 
+    <div className="login-main">
+      <div className="formm-outer">
         <Form
-          className="outer-div shadow-lg p-3 mb-5 bg-white rounded"
+          className="formm shadow-lg p-3 mb-5 bg-white rounded"
           onSubmit={handleSubmit}
-        > 
-            <h2 className="title">Reset Your Password Here</h2>  
+        >
+          <div style={{ textAlign: "center", fontFamily: "Montserrat" }}>
+            <h2 style={{}}>Reset Your Password Here</h2>
+          </div>
+          <div className="login-fields">
             <TextField
               label="Password"
               type={show ? "text" : "password"}
@@ -100,14 +106,27 @@ export default function ResetPassword() {
               ""
             )}
 
-            <div className="showPassword-div">
+            <div className="checkbox-div">
               <Checkbox onClick={() => setShow(!show)} />
               <p>Show Password</p>
             </div>
-            <Button variant="contained" type="submit">
-            Login
-          </Button>
-        </Form> 
+            <Button
+              style={{
+                marginTop: "15px",
+                backgroundColor: "#4e73df",
+                borderColor: "#4e73df",
+                color: "#fff",
+                borderRadius: "20px",
+              }}
+              variant="primary"
+              type="submit"
+              // onClick={() => login()}
+            >
+              Create
+            </Button>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 }
