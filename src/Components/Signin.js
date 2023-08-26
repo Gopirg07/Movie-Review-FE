@@ -48,7 +48,9 @@ export default function Signin() {
       localStorage.setItem("role", res.data.role);
       navigate("/dashboard");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.message); 
+      localStorage.setItem("token", error.response.data.token);
+      console.log(error.response.data.token);
     }
   };
 
