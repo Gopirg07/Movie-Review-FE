@@ -14,15 +14,34 @@ export function Movielists() {
 
   const [movieList, setMovieList] = useState([]);
 
+  let token = localStorage.getItem("token");
+
+  function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    navigate("/");
+  }
+
   const getMovies = async () => {
-    let data = await axios.get(`${url}/movies`);
-    // console.log(data);
-    toast.success(data.data.message);
-    setMovieList(data.data.data);
+    try {
+      let data = await axios.get(`${url}/movies`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      // console.log(data);
+      toast.success(data.data.message);
+      setMovieList(data.data.data);
+    } catch (error) {
+      if (error.response.status > 399 || error.response.status < 500) {
+        toast.error(error.response.data.message);
+        logout();
+      } else {
+        toast.error(error.response.data.message);
+      }
+    }
   };
 
   const deletemovie = async (id) => {
-    console.log(id); 
+    console.log(id);
 
     let data = await axios.delete(`${url}/movies/deleteMovieReview/${id}`);
     console.log(data);
@@ -30,8 +49,29 @@ export function Movielists() {
     getMovies();
   };
 
+  // useEffect(() => {
+  //   if (token) {
+  //     getMovies();
+  //   } else {
+  //     toast.error("Token Has been Expired Login Again");
+  //     logout();
+  //   }
+  // }, []);
+
   useEffect(() => {
-    getMovies();
+    try {
+      if (token) {
+        getMovies();
+      } else {
+        toast.error("Token Has been Expired Login Again");
+        logout();
+      }
+    } catch (error) {
+      if (error.response.status > 399 || error.response.status < 500) {
+        toast.error(error.response.data);
+        logout();
+      }
+    }
   }, []);
   return (
     <div>

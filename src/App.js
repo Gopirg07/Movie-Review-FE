@@ -15,6 +15,7 @@ import Activation from './Components/Activation';
 import ResetPassword from './Components/ResetPassword';
 import { Home } from './Components/Home';
 import ForgotPassword from './Components/ForgotPassword';
+import Users from './Components/Users';
 
 function App() {  
   const [movieList,setMovieList] = useState([]); 
@@ -31,6 +32,7 @@ function App() {
         <Route path="/home" element={<Home/>}/> 
         <Route path="/*" element={<Navigate to="/"/>}/> 
         <Route path="/Movie" element={<Movielists />} />  
+        <Route path="/Users" element={<Users />} />  
         <Route path="/AddMovie" element={<AddMovie movielists={movieList} setMovieList={setMovieList}/>} />  
         <Route path="/Movie/:abc" element={<MovieDetail movielists={movieList}/>} /> 
         <Route path="/Movie/edit/:abc" element={<EditMovie/>} />   

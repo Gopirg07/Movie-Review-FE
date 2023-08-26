@@ -7,7 +7,7 @@
 }
 
 .movie-poster {
-  height: 530px;
+  height: 420px;
   width: 100%;
   /* zoom  in */
   object-fit: cover;
@@ -21,6 +21,8 @@
 }
 .movie-rating {
   font-size: 24px;
+  font-family: 'Poppins';
+  margin: 0px;
 }
 .movie-name-rating {
   display: flex;
@@ -29,10 +31,15 @@
   align-items: center;
 }
 .movie-summary {
-  font-size: 19px;
+  font-size: 16px;
   font-weight: 400;
   border-radius: 14px;
   padding: 7px;
+}
+
+.counter-ud{
+  display: flex; 
+  justify-content: space-between;
 }
 
 .movie-specs {
@@ -42,12 +49,12 @@
 }
 
 .movie-container {
-  width: 340px;
+  width: 270px;
 }
 
 .movie-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1rem;
   justify-items: center;
   margin-top: 85px;

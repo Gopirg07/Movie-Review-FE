@@ -12,6 +12,8 @@ import { Counter } from "../Counter.1";
 
 export function Movie({ movie, id, delb, editb }) {
   const [show, setShow] = useState(false);
+  const role= localStorage.getItem("role")
+
   const styles = {
     color: movie.rating >= 7.5 ? "green" : "red"
   }
@@ -41,9 +43,10 @@ export function Movie({ movie, id, delb, editb }) {
 
           {show ? <p className='movie-summary shadow-lg'>{movie.summary}</p> : null}
         </CardContent>
-        <CardActions>
-          <Counter />{editb}
-          {delb}
+        <CardActions className="counter-ud">
+          <Counter /> { role==="admin"? <div>
+          {editb} {delb}
+          </div>: ""}
         </CardActions>
       </Card>
     </div>

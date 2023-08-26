@@ -1,33 +1,29 @@
 import { useState } from "react";
 import * as React from 'react';
 import { IconButton } from "@mui/material";
-import {Badge} from "@mui/material";
-import { useEffect } from "react";
+import {Badge} from "@mui/material"; 
 
 export function Counter() {
-  let [like, setLike] = useState(0);
-  let [dislike, setDislike] = useState(0);
-// useEffect(()=>{
-//   console.log("like has been updated",like)
-// },[like,dislike])
+  let [like, setLike] = useState(false);
+  let [dislike, setDislike] = useState(false); 
 
   return (
     <div>
       <IconButton
         color="primary"
-        onClick={() => setLike(like + 1)}
+        onClick={() => {setLike(!like) ; setDislike(false)} }
       >
-        <Badge badgeContent={like} color="primary">
-          👍
+        <Badge badgeContent={like ? 1: null} color="primary">
+          👍🏻
         </Badge>
       </IconButton>
 
       <IconButton
         color="primary"
-        onClick={() => setDislike(dislike + 1)}
+        onClick={() => {setDislike(!dislike) ; setLike(false)} }
       >
-        <Badge badgeContent={dislike} color="error">
-          👎
+        <Badge badgeContent={dislike ? 1 : null} color="error">
+          👎🏻
         </Badge>
       </IconButton>
     </div>

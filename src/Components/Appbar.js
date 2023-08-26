@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
-import Paper from "@mui/material/Paper";
+import { ThemeProvider, createTheme } from "@mui/material/styles"; 
 import { useNavigate } from "react-router-dom";
 import { Box, Container, IconButton, Tooltip, Typography } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -14,14 +11,8 @@ import MovieCreationRoundedIcon from '@mui/icons-material/MovieCreationRounded';
 
 export default function Appbar() {
   const navigate = useNavigate();
-
-  const [mode, setMode] = useState("light");
-
-  const darkTheme = createTheme({
-    palette: {
-      mode: mode,
-    },
-  });
+  
+  const role=localStorage.getItem("role")
 
   function logout() {
     localStorage.removeItem("token");
@@ -29,8 +20,7 @@ export default function Appbar() {
     navigate("/login");
   }
   return (
-    <div className="App">
-      <ThemeProvider theme={darkTheme}>
+    <div className="App"> 
         <AppBar>
           <Container maxWidth="xl">
             <Toolbar disableGutters>
@@ -56,9 +46,14 @@ export default function Appbar() {
                 <Button color="inherit" onClick={() => navigate("/Movie")}>
                   Movies
                 </Button>
-                <Button color="inherit" onClick={() => navigate("/AddMovie")}>
+               
+                {role==="admin" ? <Button color="inherit" onClick={() => navigate("/AddMovie")}>
                   Add Movie
-                </Button>
+                </Button>:"" } 
+
+                {role==="admin" ? <Button color="inherit" onClick={() => navigate("/Users")}>
+                  Users
+                </Button>:"" } 
                   </Box>
 
                 <Tooltip title="Logout">
@@ -79,8 +74,7 @@ export default function Appbar() {
                 </Tooltip>
             </Toolbar>
           </Container>
-        </AppBar>
-      </ThemeProvider>
+        </AppBar> 
     </div>
   );
 }
