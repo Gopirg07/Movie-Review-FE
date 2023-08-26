@@ -47,7 +47,7 @@ export default function Appbar() {
                   color: "inherit",
                   textDecoration: "none", 
                 }}
-                onClick={() => navigate("/")}
+                onClick={() => navigate("/home")}
               >
                 <MovieCreationRoundedIcon sx={{ fontSize: 40 }}/>
               </Typography>
