@@ -19,6 +19,8 @@ const CreateSchemaValidation = yup.object({
 export default function Signup() {
   const navigate = useNavigate();
   let [show, setShow] = useState(false);
+  const [sent,setSent]=useState(false)
+
 
   const { values, handleChange, handleBlur, handleSubmit, errors, touched } =
     useFormik({
@@ -39,141 +41,221 @@ export default function Signup() {
     let payload = { name, email, password, confirmPassword };
     try {
       let res = await axios.post(`${url}/users/signUp`, payload);
-      console.log(res);
+      console.log("RESULT",res);
+      localStorage.setItem("token",res.data.token)
       toast.success(res.data.message);
-      navigate("/");
+      setSent(!sent)
+      // navigate("/");
     } catch (error) {
       toast.error(error.response.data.message);
     }
   };
 
   return (
-    <div className="login-main">
-      <div className="formm-outer">
-        <Form
-          className="formm shadow-lg p-3 mb-5 bg-white rounded"
+    <div className="login-main"> 
+      {sent?<form
+          className="outer-div shadow-lg p-3 bg-white rounded"
           onSubmit={handleSubmit}
         >
-          <div style={{ textAlign: "center", fontFamily: "Montserrat" }}>
-            <h2 style={{}}>Create A New Account</h2>
+          <h2 className="title">{sent?"Account Created":"Create A New Account"}</h2>
+           <h5 className="signup-p"> We Sent You A Account Activation Link To Your Mail Id Click It To Verify Your Account. </h5>
+          <div className="login-bottom">
+            <Link to="/login">Already Have An Account? Login.</Link>
+            <Link to="/forget">Forget Password</Link>
           </div>
-          <div className="login-fields">
-            <TextField
-              className="input-field"
-              label="name"
-              variant="outlined"
-              onBlur={handleBlur}
-              name="name"
-              value={values.name}
-              onChange={handleChange}
-              style={{
-                marginTop: "20px",
-                fontSize: "15px",
-              }}
-            />
-            {touched.name && errors.name ? (
-              <p style={{ color: "red" }}>{errors.name}</p>
-            ) : (
-              ""
-            )}
-
-            <TextField
-              label="Email"
-              variant="outlined"
-              onBlur={handleBlur}
-              name="email"
-              value={values.email}
-              onChange={handleChange}
-              style={{
-                marginTop: "20px",
-                fontSize: "15px",
-              }}
-            />
-            {touched.email && errors.email ? (
-              <p style={{ color: "red" }}>{errors.email}</p>
-            ) : (
-              ""
-            )}
-
-            <TextField
-              label="Password"
-              type={show ? "text" : "password"}
-              variant="outlined"
-              onBlur={handleBlur}
-              name="password"
-              value={values.password}
-              onChange={handleChange}
-              style={{
-                marginTop: "20px",
-                fontSize: "15px",
-              }}
-            />
-            {touched.password && errors.password ? (
-              <p style={{ color: "red" }}>{errors.password}</p>
-            ) : (
-              ""
-            )}
-
-            <TextField
-              label="Confirm Password"
-              type={show ? "text" : "password"}
-              variant="outlined"
-              onBlur={handleBlur}
-              name="confirmPassword"
-              value={values.confirmPassword}
-              onChange={handleChange}
-              style={{
-                marginTop: "20px",
-                fontSize: "15px",
-              }}
-            />
-            {touched.confirmPassword && errors.confirmPassword ? (
-              <p style={{ color: "red" }}>{"Enter the Confirm Password"}</p>
-            ) : (
-              ""
-            )}
-
-            {values.confirmPassword.length &&
-            values.password !== values.confirmPassword ? (
-              <p style={{ color: "red" }}>{"Password Doesn't Match"}</p>
-            ) : (
-              ""
-            )}
-
-            <div className="checkbox-div">
-              <Checkbox onClick={() => setShow(!show)} />
-              <p>Show Password</p>
-            </div>
-            <Button
-              style={{
-                marginTop: "15px",
+        </form>:<form
+          className="outer-div shadow-lg p-3 bg-white rounded"
+          onSubmit={handleSubmit}
+        >
+          <h2 className="title">Create A New Account</h2>
+          <TextField
+            label="Name"
+            variant="outlined"
+            name="name"
+            value={values.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          {touched.name && errors.name? <p style={{color:"red"}}>*{errors.name}</p>: ""}
+          <TextField
+            label="Email"
+            variant="outlined"
+            name="email"
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          {touched.email && errors.email? <p style={{color:"red"}}>*{errors.email}</p>: ""}
+          <TextField
+            label="Password"
+            variant="outlined"
+            type={show ? "text" : "password"}
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          {touched.password && errors.password? <p style={{color:"red"}}>*{errors.password}</p>: ""}
+          <TextField
+            label="Confirm Password"
+            variant="outlined"
+            type={show ? "text" : "password"}
+            name="confirmPassword"
+            value={values.confirmPassword}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          {touched.confirmPassword && errors.confirmPassword ? <p style={{color:"red"}}>*{errors.confirmPassword}</p>: ""}
+          {touched.confirmPassword &&(values.confirmPassword.length > 0 && values.confirmPassword!==values.password)? <p style={{color:"red"}}>* Password Doesn't Match</p>: ""}
+          <div className="showPassword-div">
+            <Checkbox onClick={() => setShow(!show)} />
+            <p>Show Password</p>
+          </div>
+          <Button
+              style={{ 
                 backgroundColor: "#4e73df",
                 borderColor: "#4e73df",
                 color: "#fff",
                 borderRadius: "20px",
               }}
               variant="primary"
-              type="submit"
-              // onClick={() => login()}
+              type="submit" 
             >
-              Create
+              Submit
             </Button>
+          <div className="login-bottom">
+            <Link to="/login">Already Have An Account? Login.</Link>
+            <Link to="/forget">Forget Password</Link>
           </div>
-
-          <div style={{ marginTop: "25px" }}>
-            <div className="text-center mb-1">
-              <Link to="/reset-password" underline="hover">
-                Forgot Password?
-              </Link>
-            </div>
-            <div className="text-center">
-              <Link to="/" underline="hover">
-                Already Have A Account? Login.
-              </Link>
-            </div>
-          </div>
-        </Form>
-      </div>
+        </form>} 
     </div>
   );
 }
+
+
+
+
+
+        // <Form
+        //   className="formm shadow-lg p-3 mb-5 bg-white rounded"
+        //   onSubmit={handleSubmit}
+        // >
+        //   <div style={{ textAlign: "center", fontFamily: "Montserrat" }}>
+        //     <h2 style={{}}>Create A New Account</h2>
+        //   </div>
+        //   <div className="login-fields">
+        //     <TextField
+        //       className="input-field"
+        //       label="name"
+        //       variant="outlined"
+        //       onBlur={handleBlur}
+        //       name="name"
+        //       value={values.name}
+        //       onChange={handleChange}
+        //       style={{
+        //         marginTop: "20px",
+        //         fontSize: "15px",
+        //       }}
+        //     />
+        //     {touched.name && errors.name ? (
+        //       <p style={{ color: "red" }}>{errors.name}</p>
+        //     ) : (
+        //       ""
+        //     )}
+
+        //     <TextField
+        //       label="Email"
+        //       variant="outlined"
+        //       onBlur={handleBlur}
+        //       name="email"
+        //       value={values.email}
+        //       onChange={handleChange}
+        //       style={{
+        //         marginTop: "20px",
+        //         fontSize: "15px",
+        //       }}
+        //     />
+        //     {touched.email && errors.email ? (
+        //       <p style={{ color: "red" }}>{errors.email}</p>
+        //     ) : (
+        //       ""
+        //     )}
+
+        //     <TextField
+        //       label="Password"
+        //       type={show ? "text" : "password"}
+        //       variant="outlined"
+        //       onBlur={handleBlur}
+        //       name="password"
+        //       value={values.password}
+        //       onChange={handleChange}
+        //       style={{
+        //         marginTop: "20px",
+        //         fontSize: "15px",
+        //       }}
+        //     />
+        //     {touched.password && errors.password ? (
+        //       <p style={{ color: "red" }}>{errors.password}</p>
+        //     ) : (
+        //       ""
+        //     )}
+
+        //     <TextField
+        //       label="Confirm Password"
+        //       type={show ? "text" : "password"}
+        //       variant="outlined"
+        //       onBlur={handleBlur}
+        //       name="confirmPassword"
+        //       value={values.confirmPassword}
+        //       onChange={handleChange}
+        //       style={{
+        //         marginTop: "20px",
+        //         fontSize: "15px",
+        //       }}
+        //     />
+        //     {touched.confirmPassword && errors.confirmPassword ? (
+        //       <p style={{ color: "red" }}>{"Enter the Confirm Password"}</p>
+        //     ) : (
+        //       ""
+        //     )}
+
+        //     {values.confirmPassword.length &&
+        //     values.password !== values.confirmPassword ? (
+        //       <p style={{ color: "red" }}>{"Password Doesn't Match"}</p>
+        //     ) : (
+        //       ""
+        //     )}
+
+        //     <div className="checkbox-div">
+        //       <Checkbox onClick={() => setShow(!show)} />
+        //       <p>Show Password</p>
+        //     </div>
+        //     <Button
+        //       style={{
+        //         marginTop: "15px",
+        //         backgroundColor: "#4e73df",
+        //         borderColor: "#4e73df",
+        //         color: "#fff",
+        //         borderRadius: "20px",
+        //       }}
+        //       variant="primary"
+        //       type="submit"
+        //       // onClick={() => login()}
+        //     >
+        //       Create
+        //     </Button>
+        //   </div>
+
+        //   <div style={{ marginTop: "25px" }}>
+        //     <div className="text-center mb-1">
+        //       <Link to="/forget" underline="hover">
+        //         Forgot Password?
+        //       </Link>
+        //     </div>
+        //     <div className="text-center">
+        //       <Link to="/" underline="hover">
+        //         Already Have A Account? Login.
+        //       </Link>
+        //     </div>
+        //   </div>
+        // </Form>

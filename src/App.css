@@ -75,32 +75,94 @@
   margin-top: 62px;
 }
 
-/* login */
-
-.title {
-  text-align: center;
-  font-family: "Poppins";
+.btn-styling {
+  background-color: #4e73df;
+  border-color: #4e73df;
+  color: #fff;
 }
+
+.login-main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.formm-outer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.formm {
+  width: 600px;
+}
+.login-fields {
+  display: flex;
+  flex-direction: column;
+}
+.checkbox-div {
+  display: flex;
+  align-items: center;
+}
+.checkbox-div > p {
+  margin: 0px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.title-create {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0px;
+}
+.title-create > h1 {
+  margin: 0px;
+  margin-right: 30%;
+  margin-left: 30%;
+}
+.dashboard-maincard{  
+  padding: 10px ; 
+  margin: 30px;
+  margin-top: 50px !important;
+}
+
+.forget-exp{
+  color:#5A5A5A;
+  font-size: 20px; 
+  letter-spacing: 1px;
+}  
+
+/* login */
 
 .login-main {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} 
 
-.outer-div {
+.outer-div { 
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 600px;
+  width: 600px
 }
 
-.forget-done-outer-div {
-  width: 600px;
+.title {
+  text-align: center;
+  font-family: "Poppins";
+}
+
+.signup-p {
+  letter-spacing: 1px;
+  text-align: center;
+} 
+
+.login-bottom {
+  margin-top: 15px;
+  gap: 6px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   align-items: center;
 }
 
@@ -115,27 +177,10 @@
   font-size: 15px;
 }
 
-.login-bottom {
-  gap: 6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-/* Forget */
-.forget-p {
-  font-size: 19px;
-  letter-spacing: 1px;
-}
-.signup-p {
-  letter-spacing: 1px;
-  text-align: center;
-}
-.forget-exp {
-  color: #5a5a5a;
-  font-size: 20px;
-  letter-spacing: 1px;
-}
+
+
+
 
 /* .propic{
   height:120px;

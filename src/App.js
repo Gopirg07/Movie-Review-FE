@@ -22,14 +22,14 @@ function App() {
   return ( 
     <div className="App">    
       <Routes>   
-        <Route path="/signin" element={<Signin/>}/>
+        <Route path="/" element={<Signin/>}/>
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/signUpActivation/:id" element={<Activation/>} />
         <Route path="/forget" element={<ForgotPassword/>}/>
         <Route path="/reset-password/:id" element={<ResetPassword/>} />
 
-        <Route path="/" element={<Home/>}/> 
-        <Route path="/*" element={<Navigate to="/signin"/>}/> 
+        <Route path="/home" element={<Home/>}/> 
+        <Route path="/*" element={<Navigate to="/"/>}/> 
         <Route path="/Movie" element={<Movielists />} />  
         <Route path="/AddMovie" element={<AddMovie movielists={movieList} setMovieList={setMovieList}/>} />  
         <Route path="/Movie/:abc" element={<MovieDetail movielists={movieList}/>} /> 

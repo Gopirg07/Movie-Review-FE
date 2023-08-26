@@ -26,8 +26,8 @@ export default function Signin() {
   const { values, handleChange, handleBlur, handleSubmit, errors, touched } =
     useFormik({
       initialValues: {
-        email: "",
-        password: "",
+        email: "gopi.rg03@gmail.com",
+        password: "gopi@321",
       },
       validationSchema: LoginSchemaValidation,
       onSubmit: (val) => {
@@ -122,13 +122,13 @@ export default function Signin() {
 
           <div style={{ marginTop: "25px" }}>
             <div className="text-center mb-1">
-              <Link to="/reset-password" underline="hover">
+              <Link to="/forget" underline="hover">
                 {" "}
                 Forgot Password{" "}
               </Link>
             </div>
             <div className="text-center">
-              <Link to="/account-registration" underline="hover">
+              <Link to="/signup" underline="hover">
                 {" "}
                 Create A New Account{" "}
               </Link>

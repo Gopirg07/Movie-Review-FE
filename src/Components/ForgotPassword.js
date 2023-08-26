@@ -137,7 +137,7 @@ export default function ForgotPassword() {
 
             <div style={{ marginTop: "25px" }}>
               <div className="text-center mb-1">
-                <Link to="/account-registration" underline="hover">
+                <Link to="/signup" underline="hover">
                   {" "}
                   Create A New Account{" "}
                 </Link>
